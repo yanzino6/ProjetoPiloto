@@ -44,6 +44,14 @@ function App() {
     },];
     setTarefas(novasTarefas);
   }
+  const editaTarefa = (id, novoTexto, novaCategoria) => {
+    const novaLista = tarefas.map((tarefa) =>
+      tarefa.id === id
+        ? { ...tarefa, texto: novoTexto, categoria: novaCategoria }
+        : tarefa
+    );
+    setTarefas(novaLista);
+  };
 
   const deletaTarefa = (id)=>{
     const novaLista = [...tarefas];
@@ -83,7 +91,7 @@ function App() {
       .filter((tarefas)=> categFiltro==="Allcategs" ? true : tarefas.categoria === categFiltro)
 
       .map((tarefas)=>(
-       <Lista key= {tarefas.id}tarefas={tarefas} deletaTarefa={deletaTarefa} concluiTarefa={concluiTarefa}/>
+       <Lista key= {tarefas.id}tarefas={tarefas} deletaTarefa={deletaTarefa} concluiTarefa={concluiTarefa} editaTarefa={editaTarefa}/>
       ))}
     </div>
     <AddForms adicionaTarefa={adicionaTarefa} />

@@ -91,3 +91,27 @@ margin: 20px auto;
   border-radius: 5px;
   color: black;
 }
+
+.edicaoTarefa {
+  flex-direction: column; /* Faz os elementos do formulário ficarem empilhados */
+  align-items: flex-start;
+  background-color: darkslategrey;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.edicaoTarefa input,
+.edicaoTarefa select {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 99%; 
+}
+
+.edicaoTarefa button {
+  margin-right: 5px;
+  
+}
