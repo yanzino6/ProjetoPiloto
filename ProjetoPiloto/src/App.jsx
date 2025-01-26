@@ -24,7 +24,15 @@ function App() {
       categoria: "Studies",
       concluida: false,
     }
+    
   ]);
+  const contaConcluidas = ()=>{
+    return tarefas.filter((tarefas)=>tarefas.concluida).length
+  }
+
+  const contaTarefas = ()=>{
+    return tarefas.length
+  }
 
   const adicionaTarefa =(texto,categoria)=>{
 
@@ -52,12 +60,16 @@ function App() {
   const [searchBar,setSearchBar]= useState("");
 
   const [filtro,setFiltro] = useState("All");
-  const [ordem,setOrdem] = useState("");
+  const [ordem,setOrdem] = useState("none");
   const [categFiltro, setCategFiltro] = useState("Allcategs");
+  
 
   return  <div className="app">
     
     <h1>To do List</h1>
+    <div className="counter">
+      <h3>{contaConcluidas()} of {contaTarefas()} tasks done</h3>
+    </div>
     <SearchBar SearchBar={SearchBar} setSearchBar={setSearchBar}/>
     <Filtro filtro={filtro} setFiltro={setFiltro} 
     setOrdem={setOrdem} 
@@ -67,7 +79,7 @@ function App() {
       {tarefas
       .filter((tarefas)=> filtro==="All" ? true : filtro === "Completed" ? tarefas.concluida : !tarefas.concluida)
       .filter((tarefas)=> tarefas.texto.toLowerCase().includes(searchBar.toLowerCase()))
-      .sort((a,b) => ordem==="A-Z" ? a.texto.localeCompare(b.texto) : b.texto.localeCompare(a.texto))
+      .sort((a,b) => ordem==="none"?true:ordem==="A-Z" ? a.texto.localeCompare(b.texto) : b.texto.localeCompare(a.texto))
       .filter((tarefas)=> categFiltro==="Allcategs" ? true : tarefas.categoria === categFiltro)
 
       .map((tarefas)=>(

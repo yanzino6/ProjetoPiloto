@@ -24,8 +24,9 @@ const Filtro = ({filtro,setFiltro,setOrdem,categFiltro, setCategFiltro}) => {
         </div>
         <div>
             <p>Alphabetically sort</p>
+            <button onClick={()=>setOrdem("none")}>None</button>
             <button onClick={()=>setOrdem("A-Z")}>A-Z</button>
-        <button onClick={()=>setOrdem("Z-A")}>Z-A</button>
+            <button onClick={()=>setOrdem("Z-A")}>Z-A</button>
         </div>
 
     </div>
