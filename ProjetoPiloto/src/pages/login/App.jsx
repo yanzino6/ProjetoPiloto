@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import "./styles/App.css"
-import Lista from './components/lista';
-import AddForms from './components/AddForms';
-import SearchBar from './components/SearchBar';
-import Filtro from './components/Filtro';
+import "../../styles/App.css"
+import Lista from '../../components/lista';
+import AddForms from '../../components/AddForms';
+import SearchBar from '../../components/SearchBar';
+import Filtro from '../../components/Filtro';
 function App() {
   const [tarefas, setTarefas] = useState([
     {
