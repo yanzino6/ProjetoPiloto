@@ -1,0 +1,42 @@
+.filtro, .searchBar {
+    border-bottom: 1px solid #555;
+    
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    width: 100%;
+}
+
+.pesquisa{
+    
+    border-bottom: 1px solid #555;
+    margin-bottom: 12;
+}
+
+ .opcoesFiltragem{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #555;
+    width: 100%;
+}
+.opcoesFiltragem
+{
+  margin-bottom: 20px;
+}
+
+.sort
+{   background-color: orange;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    border:none;
+    transition: .3s;
+    opacity: 0.8;
+    margin-right: 10px;}
+
+    .tipoFiltro
+    {
+    color: aliceblue;
+    margin: 10px 0;
+    }

@@ -1,8 +1,11 @@
+import LoginForms from "../../components/LoginForms";
 
 
 function Login(){
-    return <div>
-        <h1>Ola</h1>
+    return <div className= "">
+        <div className="">
+            <LoginForms />
+        </div>
     </div>
        
     

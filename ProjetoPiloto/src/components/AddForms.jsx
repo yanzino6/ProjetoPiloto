@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import "../styles/Forms.modules.css"
+import styles from "../styles/Forms.module.css"
 
 
 const AddForms = ({adicionaTarefa}) => {
@@ -15,21 +15,21 @@ const AddForms = ({adicionaTarefa}) => {
         
     }
 
-  return <div className="AddForm">
+  return <div className={styles.AddForm}>
     <h2>Add Task</h2>
     <form onSubmit={subForm}>
-        <input type="text" placeholder='Task label' 
+        <input className={styles.label} type="text" placeholder='Task label' 
         onChange={(e)=>setTask(e.target.value)} 
         value={task}
         />
-        <select onChange={(e)=>setCategoria(e.target.value)}
+        <select className={styles.categ} onChange={(e)=>setCategoria(e.target.value)}
             value={categoria}>
             <option value="">Select a task type</option>
             <option value="Work">Work</option>
             <option value="Studies">Studies</option>
             <option value="Personal">Personal</option>
         </select>
-        <button type='submit'>Create task</button>
+        <button className={styles.create}type='submit'>Create task</button>
     </form>
   </div>
 }

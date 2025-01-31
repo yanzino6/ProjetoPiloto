@@ -1,21 +1,21 @@
 import React from 'react'
-import "../styles/Filter&Search.modules.css"
+import styles from '../styles/Filter&Search.module.css'
 const Filtro = ({filtro,setFiltro,setOrdem,categFiltro, setCategFiltro}) => {
-  return <div className='filtro'>
+  return <div >
     <h2>Filter</h2>
-    <div className="opcoesFiltragem">
+    <div className={styles.opcoesFiltragem}>
         <div>
-            <p>Status</p>
-            <select value={filtro} onChange={(e)=>setFiltro(e.target.value)}>
+            <p className={styles.tipoFiltro}>Status</p>
+            <select className={styles.filtro} value={filtro} onChange={(e)=>setFiltro(e.target.value)}>
                 <option value="All">All</option>
                 <option value="Completed">Completed</option>
                 <option value="Not completed">Not completed</option>
             </select>
         </div>
         <div>
-        <p>Categories</p>
+        <p className={styles.tipoFiltro}>Categories</p>
         
-        <select value={categFiltro} onChange={(e)=>setCategFiltro(e.target.value)}>
+        <select className={styles.filtro} value={categFiltro} onChange={(e)=>setCategFiltro(e.target.value)}>
                 <option value="Allcategs">All</option>
                 <option value="Personal">Personal</option>
                 <option value="Work">Work</option>
@@ -23,10 +23,10 @@ const Filtro = ({filtro,setFiltro,setOrdem,categFiltro, setCategFiltro}) => {
             </select>
         </div>
         <div>
-            <p>Alphabetically sort</p>
-            <button onClick={()=>setOrdem("none")}>None</button>
-            <button onClick={()=>setOrdem("A-Z")}>A-Z</button>
-            <button onClick={()=>setOrdem("Z-A")}>Z-A</button>
+            <p className={styles.tipoFiltro}>Alphabetically sort</p>
+            <button className={styles.sort}onClick={()=>setOrdem("none")}>None</button>
+            <button className={styles.sort}onClick={()=>setOrdem("A-Z")}>A-Z</button>
+            <button className={styles.sort}onClick={()=>setOrdem("Z-A")}>Z-A</button>
         </div>
 
     </div>

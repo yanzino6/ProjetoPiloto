@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import "../../styles/App.css"
+import styles from '../../styles/App.module.css'
 import Lista from '../../components/lista';
 import AddForms from '../../components/AddForms';
 import SearchBar from '../../components/SearchBar';
 import Filtro from '../../components/Filtro';
 function App() {
+  
+  
   const [tarefas, setTarefas] = useState([
     {
       id:1,
@@ -72,10 +74,10 @@ function App() {
   const [categFiltro, setCategFiltro] = useState("Allcategs");
   
 
-  return  <div className="app">
+  return  <div className={styles.app}>
     
-    <h1>To do List</h1>
-    <div className="counter">
+   <div className={styles.titulo}> <h1>To do List</h1></div>
+    <div className={styles.counter}>
       <h3>{contaConcluidas()} of {contaTarefas()} tasks done</h3>
     </div>
     <SearchBar SearchBar={SearchBar} setSearchBar={setSearchBar}/>
@@ -83,7 +85,7 @@ function App() {
     setOrdem={setOrdem} 
     categFiltro={categFiltro} setCategFiltro = {setCategFiltro}/>
     
-    <div className="lista-de-tarefas">
+    <div className={styles.listadetarefas}>
       {tarefas
       .filter((tarefas)=> filtro==="All" ? true : filtro === "Completed" ? tarefas.concluida : !tarefas.concluida)
       .filter((tarefas)=> tarefas.texto.toLowerCase().includes(searchBar.toLowerCase()))
@@ -101,3 +103,4 @@ function App() {
 }
 
 export default App;
+

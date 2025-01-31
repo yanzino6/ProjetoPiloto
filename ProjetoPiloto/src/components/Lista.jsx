@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import styles from "../styles/Lista.module.css"
 const Lista = ({tarefas, deletaTarefa,concluiTarefa,editaTarefa}) => {
 
   const [editando,setEditando] = useState(false)
@@ -12,7 +12,7 @@ const Lista = ({tarefas, deletaTarefa,concluiTarefa,editaTarefa}) => {
   };
 
   return (editando?(
-    <div className='edicaoTarefa'>
+    <div className={styles.edicaoTarefa}>
     <input
       type="text"
       value={novoTexto}
@@ -25,19 +25,19 @@ const Lista = ({tarefas, deletaTarefa,concluiTarefa,editaTarefa}) => {
             <option value="Studies">Studies</option>
             <option value="Personal">Personal</option>
         </select>
-    <button onClick={salvarEdicao}>Salvar</button>
-    <button onClick={() => setEditando(false)}>Cancelar</button>
+    <button className={styles.save} onClick={salvarEdicao}>Salvar</button>
+    <button className={styles.cancel}onClick={() => setEditando(false)}>Cancelar</button>
   </div>
   ):
-    <div className="tarefas">
+    <div className={styles.tarefas}>
           <div className="content">
-            <p style={{textDecoration: tarefas.concluida ? "line-through":""}}>{tarefas.texto}</p>
-            <p className="categoria">{tarefas.categoria}</p>
+            <p className={styles.tarefa}style={{textDecoration: tarefas.concluida ? "line-through":""}}>{tarefas.texto}</p>
+            <p className={styles.categoria}>{tarefas.categoria}</p>
           </div>
           <div>
-          <button className='complete' onClick={()=>concluiTarefa(tarefas.id)}>Concluir</button>
-          <button onClick={() => setEditando(true)}>Editar</button>
-          <button className='delete' onClick={()=>deletaTarefa(tarefas.id)}>X</button>
+          <button className={styles.complete} onClick={()=>concluiTarefa(tarefas.id)}>Concluir</button>
+          <button className= {styles.edit}onClick={() => setEditando(true)}>Editar</button>
+          <button className={styles.delete} onClick={()=>deletaTarefa(tarefas.id)}>X</button>
           </div>
     </div>
   )

@@ -1,0 +1,24 @@
+.tarefas{
+    padding-bottom: 5px;
+}
+.label,.categ{
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    width: 100%;
+
+}
+.create{
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    border:none;
+    background-color: orange;
+    transition: .3s;
+    opacity: 0.8;
+    margin-right: 10px;}
+
+    .create:hover{
+        opacity: 1;
+    }
