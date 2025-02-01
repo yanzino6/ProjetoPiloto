@@ -2,6 +2,7 @@ import React from 'react'
 import styles from "../styles/Login.module.css"
 import {FaUser, FaLock} from 'react-icons/fa'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const LoginForms = () => {
 
@@ -34,7 +35,7 @@ const LoginForms = () => {
             </div>
             <div className={styles.links}>
              <a className={styles.link} href="#">Forgot my password</a>
-             <a className={styles.link} href="#">Create an account</a>
+             <a className={styles.link} href="/signup">Create an account</a>
             </div>
             <div>
               <button className={styles.submit} >Enter</button>

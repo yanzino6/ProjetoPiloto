@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import styles from '../../styles/App.module.css'
-import Lista from '../../components/lista';
+import Lista from '../../components/Lista';
 import AddForms from '../../components/AddForms';
 import SearchBar from '../../components/SearchBar';
 import Filtro from '../../components/Filtro';
-function App() {
+export function App() {
   
   
   const [tarefas, setTarefas] = useState([
@@ -102,5 +102,5 @@ function App() {
 
 }
 
-export default App;
+
 

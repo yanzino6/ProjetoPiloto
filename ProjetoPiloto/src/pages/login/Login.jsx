@@ -1,7 +1,7 @@
 import LoginForms from "../../components/LoginForms";
 
 
-function Login(){
+export function Login(){
     return <div className= "">
         <div className="">
             <LoginForms />
@@ -11,4 +11,3 @@ function Login(){
     
 }
 
-export default Login;

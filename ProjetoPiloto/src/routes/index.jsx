@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import App from '../pages/login/App.jsx'
-import Login from "../pages/login/Login.jsx";
-import Signup from "../pages/login/Signup.jsx";
+import {App} from '../pages/login/App.jsx'
+import {Login} from "../pages/login/Login.jsx";
+import {Signup} from "../pages/login/Signup.jsx";
 
 const Private = ({ Item }) => {
     const signed = false;
