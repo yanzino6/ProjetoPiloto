@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from "../styles/Login.module.css"
 import { FaUser, FaLock } from 'react-icons/fa'
 import { useState } from 'react'
@@ -27,14 +26,9 @@ const LoginForms = () => {
           <input onChange={(e) => setPassword(e.target.value)} className={styles.formField} type="password" placeholder='Insert your password' />
           <FaLock className={styles.icon} />
         </div>
-        <div className={styles.rememberMe}>
-          <label>
-            <input type="checkbox" />
-            Remember me next time
-          </label>
-        </div>
+
         <div className={styles.links}>
-          <a className={styles.link} href="#">Forgot my password</a>
+
           <a className={styles.link} href="/signup">Create an account</a>
         </div>
         <div>
@@ -47,3 +41,4 @@ const LoginForms = () => {
 }
 
 export default LoginForms
+
