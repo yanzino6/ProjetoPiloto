@@ -5,41 +5,41 @@ import AddForms from '../../components/AddForms';
 import SearchBar from '../../components/SearchBar';
 import Filtro from '../../components/Filtro';
 export function App() {
-  
-  
+
+
   const [tarefas, setTarefas] = useState([
     {
-      id:1,
+      id: 1,
       texto: "Criar funcionalidade x no sistema",
       categoria: "Work",
       concluida: false,
     },
     {
-      id:2,
+      id: 2,
       texto: "Ir pra academia",
       categoria: "Personal",
       concluida: false,
     },
     {
-      id:3,
+      id: 3,
       texto: "Estudar React",
       categoria: "Studies",
       concluida: false,
     }
-    
+
   ]);
-  const contaConcluidas = ()=>{
-    return tarefas.filter((tarefas)=>tarefas.concluida).length
+  const contaConcluidas = () => {
+    return tarefas.filter((tarefas) => tarefas.concluida).length
   }
 
-  const contaTarefas = ()=>{
+  const contaTarefas = () => {
     return tarefas.length
   }
 
-  const adicionaTarefa =(texto,categoria)=>{
+  const adicionaTarefa = (texto, categoria) => {
 
-    const novasTarefas = [...tarefas,{
-      id:Math.floor(Math.random()*10000),
+    const novasTarefas = [...tarefas, {
+      id: Math.floor(Math.random() * 10000),
       texto,
       categoria,
       concluida: false,
@@ -55,50 +55,50 @@ export function App() {
     setTarefas(novaLista);
   };
 
-  const deletaTarefa = (id)=>{
+  const deletaTarefa = (id) => {
     const novaLista = [...tarefas];
-    const listaSemRemovido = novaLista.filter((tarefas)=>tarefas.id != id ? tarefas:null);
+    const listaSemRemovido = novaLista.filter((tarefas) => tarefas.id != id ? tarefas : null);
     setTarefas(listaSemRemovido);
   }
 
   const concluiTarefa = (id) => {
     const novaLista = [...tarefas];
-    novaLista.map((tarefas)=>tarefas.id === id ? tarefas.concluida = !tarefas.concluida : tarefas);
+    novaLista.map((tarefas) => tarefas.id === id ? tarefas.concluida = !tarefas.concluida : tarefas);
     setTarefas(novaLista);
   }
 
-  const [searchBar,setSearchBar]= useState("");
+  const [searchBar, setSearchBar] = useState("");
 
-  const [filtro,setFiltro] = useState("All");
-  const [ordem,setOrdem] = useState("none");
+  const [filtro, setFiltro] = useState("All");
+  const [ordem, setOrdem] = useState("none");
   const [categFiltro, setCategFiltro] = useState("Allcategs");
-  
 
-  return  <div className={styles.app}>
-    
-   <div className={styles.titulo}> <h1>To do List</h1></div>
+
+  return <div className={styles.app}>
+
+    <div className={styles.titulo}> <h1>To do List</h1></div>
     <div className={styles.counter}>
       <h3>{contaConcluidas()} of {contaTarefas()} tasks done</h3>
     </div>
-    <SearchBar SearchBar={SearchBar} setSearchBar={setSearchBar}/>
-    <Filtro filtro={filtro} setFiltro={setFiltro} 
-    setOrdem={setOrdem} 
-    categFiltro={categFiltro} setCategFiltro = {setCategFiltro}/>
-    
+    <SearchBar SearchBar={SearchBar} setSearchBar={setSearchBar} />
+    <Filtro filtro={filtro} setFiltro={setFiltro}
+      setOrdem={setOrdem}
+      categFiltro={categFiltro} setCategFiltro={setCategFiltro} />
+
     <div className={styles.listadetarefas}>
       {tarefas
-      .filter((tarefas)=> filtro==="All" ? true : filtro === "Completed" ? tarefas.concluida : !tarefas.concluida)
-      .filter((tarefas)=> tarefas.texto.toLowerCase().includes(searchBar.toLowerCase()))
-      .sort((a,b) => ordem==="none"?true:ordem==="A-Z" ? a.texto.localeCompare(b.texto) : b.texto.localeCompare(a.texto))
-      .filter((tarefas)=> categFiltro==="Allcategs" ? true : tarefas.categoria === categFiltro)
+        .filter((tarefas) => filtro === "All" ? true : filtro === "Completed" ? tarefas.concluida : !tarefas.concluida)
+        .filter((tarefas) => tarefas.texto.toLowerCase().includes(searchBar.toLowerCase()))
+        .sort((a, b) => ordem === "none" ? true : ordem === "A-Z" ? a.texto.localeCompare(b.texto) : b.texto.localeCompare(a.texto))
+        .filter((tarefas) => categFiltro === "Allcategs" ? true : tarefas.categoria === categFiltro)
 
-      .map((tarefas)=>(
-       <Lista key= {tarefas.id}tarefas={tarefas} deletaTarefa={deletaTarefa} concluiTarefa={concluiTarefa} editaTarefa={editaTarefa}/>
-      ))}
+        .map((tarefas) => (
+          <Lista key={tarefas.id} tarefas={tarefas} deletaTarefa={deletaTarefa} concluiTarefa={concluiTarefa} editaTarefa={editaTarefa} />
+        ))}
     </div>
     <AddForms adicionaTarefa={adicionaTarefa} />
   </div>;
-  
+
 
 }
 
