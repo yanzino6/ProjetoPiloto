@@ -7,6 +7,8 @@ import plugin from 'eslint-plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(),
-  tailwindcss(),]
-  
+  tailwindcss(),],
+  esbuild:{
+    target:'es2022'
+  }
 })
