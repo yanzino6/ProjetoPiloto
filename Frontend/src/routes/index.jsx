@@ -4,17 +4,14 @@ import {App} from '../pages/login/App.jsx'
 import {Login} from "../pages/login/Login.jsx";
 import {Signup} from "../pages/login/Signup.jsx";
 
-const Private = ({ Item }) => {
-    const signed = true;
-    return signed ? <Item /> : <Login />;
-};
+
 
 const RoutesApp = () => {
     return (
         <BrowserRouter>
             <Fragment>
                 <Routes>
-                    <Route exact path="/todo" element={<Private Item={App} />} />
+                    <Route exact path="/tasks" element={<App />} />
                     <Route path="/" element={<Login />} />
                     <Route exact path="/signup" element={<Signup />} />
                     <Route path="*" element={<Login/>} />

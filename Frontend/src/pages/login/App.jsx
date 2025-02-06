@@ -1,106 +1,106 @@
-import { useState } from 'react'
-import styles from '../../styles/App.module.css'
+import { useState, useEffect } from 'react';
+import styles from '../../styles/App.module.css';
 import Lista from '../../components/Lista';
 import AddForms from '../../components/AddForms';
 import SearchBar from '../../components/SearchBar';
 import Filtro from '../../components/Filtro';
+import api from '../../api';
+
 export function App() {
+  const [tarefas, setTarefas] = useState([]); 
 
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await api.get("/tasks");
+        console.log("Dados recebidos:", response.data); 
+        if (Array.isArray(response.data)) {
+          setTarefas(response.data); 
+        } else {
+          console.error("Erro: API retornou um formato inesperado", response.data);
+        }
+      } catch (error) {
+        console.error("Erro ao carregar tarefas:", error);
+      }
+    };
 
-  const [tarefas, setTarefas] = useState([
-    {
-      id: 1,
-      texto: "Criar funcionalidade x no sistema",
-      categoria: "Work",
-      concluida: false,
-    },
-    {
-      id: 2,
-      texto: "Ir pra academia",
-      categoria: "Personal",
-      concluida: false,
-    },
-    {
-      id: 3,
-      texto: "Estudar React",
-      categoria: "Studies",
-      concluida: false,
-    }
-
-  ]);
-  const contaConcluidas = () => {
-    return tarefas.filter((tarefas) => tarefas.concluida).length
-  }
-
-  const contaTarefas = () => {
-    return tarefas.length
-  }
-
-  const adicionaTarefa = (texto, categoria) => {
-
-    const novasTarefas = [...tarefas, {
-      id: Math.floor(Math.random() * 10000),
-      texto,
-      categoria,
-      concluida: false,
-    },];
-    setTarefas(novasTarefas);
-  }
-  const editaTarefa = (id, novoTexto, novaCategoria) => {
-    const novaLista = tarefas.map((tarefa) =>
-      tarefa.id === id
-        ? { ...tarefa, texto: novoTexto, categoria: novaCategoria }
-        : tarefa
+    fetchTasks();
+  }, []);
+  const atualizaTarefaNoEstado = (tarefaAtualizada) => {
+    setTarefas((tarefasAnteriores) =>
+      tarefasAnteriores.map((t) =>
+        t.id === tarefaAtualizada.id ? tarefaAtualizada : t
+      )
     );
-    setTarefas(novaLista);
+  };
+  const contaConcluidas = () => tarefas.filter((t) => t.done).length;
+  const contaTarefas = () => tarefas.length;
+
+  const adicionaTarefa = async (texto, categoria) => {
+    try {
+      const response = await api.post("/tasks", { label: texto, categorie: categoria });
+      setTarefas([...tarefas, response.data]);
+    } catch (error) {
+      alert("Erro ao adicionar tarefa.");
+    }
   };
 
-  const deletaTarefa = (id) => {
-    const novaLista = [...tarefas];
-    const listaSemRemovido = novaLista.filter((tarefas) => tarefas.id != id ? tarefas : null);
-    setTarefas(listaSemRemovido);
-  }
+  const editaTarefa = async (id, novoTexto, novaCategoria) => {
+    try {
+      await api.patch(`/tasks/${id}`, { label: novoTexto, categorie: novaCategoria });
+      const novaLista = tarefas.map((tarefa) =>
+        tarefa.id === id ? { ...tarefa, texto: novoTexto, categoria: novaCategoria } : tarefa
+      );
+      setTarefas(novaLista);
+    } catch (error) {
+      alert("Erro ao editar tarefa.");
+    }
+  };
 
-  const concluiTarefa = (id) => {
-    const novaLista = [...tarefas];
-    novaLista.map((tarefas) => tarefas.id === id ? tarefas.concluida = !tarefas.concluida : tarefas);
-    setTarefas(novaLista);
-  }
+  const deletaTarefa = async (id) => {
+    try {
+      await api.delete(`/tasks/${id}`);
+      setTarefas(tarefas.filter((tarefa) => tarefa.id !== id));
+    } catch (error) {
+      alert("Erro ao deletar tarefa.");
+    }
+  };
+
+  const concluiTarefa = async (id) => {
+    try {
+      const tarefa = tarefas.find((t) => t.id === id);
+      const response = await api.patch(`/tasks/${id}`, { done: !tarefa.done });
+
+      setTarefas((tarefas) => tarefas.map((t) =>
+        t.id === id ? response.data : t
+      ));
+    } catch (error) {
+      alert("Erro ao marcar como concluída.");
+    }
+  };
 
   const [searchBar, setSearchBar] = useState("");
+  const tarefasFiltradas = tarefas.filter((t) =>
+    t.label.toLowerCase().includes(searchBar.toLowerCase())
+  );
 
-  const [filtro, setFiltro] = useState("All");
-  const [ordem, setOrdem] = useState("none");
-  const [categFiltro, setCategFiltro] = useState("Allcategs");
-
-
-  return <div className={styles.app}>
-
-    <div className={styles.titulo}> <h1>To do List</h1></div>
-    <div className={styles.counter}>
-      <h3>{contaConcluidas()} of {contaTarefas()} tasks done</h3>
+  return (
+    <div className={styles.app}>
+      <div className={styles.titulo}>
+        <h1>To do List</h1>
+      </div>
+      <div className={styles.counter}>
+        <h3>{contaConcluidas()} of {contaTarefas()} tasks done</h3>
+      </div>
+      <SearchBar searchBar={searchBar} setSearchBar={setSearchBar} />
+      <div className={styles.listadetarefas}>
+        {tarefasFiltradas
+          
+          .map((tarefa) => (
+            <Lista atualizaTarefaNoEstado={atualizaTarefaNoEstado} key={tarefa.id} tarefas={tarefa} deletaTarefa={deletaTarefa} concluiTarefa={concluiTarefa} editaTarefa={editaTarefa} />
+          ))}
+      </div>
+      <AddForms adicionaTarefa={adicionaTarefa} />
     </div>
-    <SearchBar SearchBar={SearchBar} setSearchBar={setSearchBar} />
-    <Filtro filtro={filtro} setFiltro={setFiltro}
-      setOrdem={setOrdem}
-      categFiltro={categFiltro} setCategFiltro={setCategFiltro} />
-
-    <div className={styles.listadetarefas}>
-      {tarefas
-        .filter((tarefas) => filtro === "All" ? true : filtro === "Completed" ? tarefas.concluida : !tarefas.concluida)
-        .filter((tarefas) => tarefas.texto.toLowerCase().includes(searchBar.toLowerCase()))
-        .sort((a, b) => ordem === "none" ? true : ordem === "A-Z" ? a.texto.localeCompare(b.texto) : b.texto.localeCompare(a.texto))
-        .filter((tarefas) => categFiltro === "Allcategs" ? true : tarefas.categoria === categFiltro)
-
-        .map((tarefas) => (
-          <Lista key={tarefas.id} tarefas={tarefas} deletaTarefa={deletaTarefa} concluiTarefa={concluiTarefa} editaTarefa={editaTarefa} />
-        ))}
-    </div>
-    <AddForms adicionaTarefa={adicionaTarefa} />
-  </div>;
-
-
+  );
 }
-
-
-
