@@ -1,48 +1,41 @@
 import { Request, Response } from 'express';
 import { createTask, getTasksByUser, updateTask, deleteTask } from '../models/modelTasks';
-import { getUserByEmail } from '../models/modelUser';
-import { createToken } from '../jwt/jwt';
+
 
 
 export const createTaskController = async (req: Request, res: Response): Promise<void> => {
     try {
-       
+
 
         if (!req.user || !req.user.id) {
-            console.error("❌ Erro: `req.user` está indefinido ou sem ID.");
+            console.error("Erro: `req.user` está indefinido ou sem ID.");
             res.status(401).json({ message: "Usuário não autenticado" });
             return;
         }
 
         const user_id = req.user.id;
-        let { label, categorie } = req.body;
-
+        let { label } = req.body;
+        
+        //verifica se a label foi extraida de forma correta ou se está vazia
         if (typeof label === "object" && label !== null) {
-            console.warn("⚠️ `label` está como objeto, corrigindo...");
-            label = label.label || "Título Padrão"; 
+            
+            label = label.label || "Título Padrão";
         }
 
-        if (!categorie || typeof categorie !== "string") {
-            console.warn("⚠️ `categorie` não foi enviado corretamente. Definindo valor padrão.");
-            categorie = "Uncategorized";
-        }
 
-        
+        const task = await createTask({ label, user_id });
 
-        
-        const task = await createTask({ label, categorie, user_id });
 
-        
         res.status(201).json(task);
     } catch (error: any) {
-        
+
         res.status(500).json({ message: "Erro interno ao criar tarefa", error: error.message });
     }
 };
 
 export const getTasksController = async (req: Request, res: Response) => {
     try {
-        const userId = req.user?.id; 
+        const userId = req.user?.id;
         const tasks = await getTasksByUser(userId);
         res.json(tasks);
     } catch (error) {
@@ -51,16 +44,16 @@ export const getTasksController = async (req: Request, res: Response) => {
 };
 
 
-export const updateTaskController = async (req: Request, res: Response) => {
+export const updateTaskController = async (req: Request, res: Response): Promise<void> => {
     try {
         const { label, categorie, done } = req.body;
         const taskId = parseInt(req.params.id);
 
         if (isNaN(taskId)) {
-            return res.status(400).json({ message: "ID inválido" });
+         res.status(400).json({ message: "ID inválido" });
         }
 
-        
+
         const updateData: any = {};
         if (label) updateData.label = label;
         if (categorie) updateData.categorie = categorie;
@@ -69,12 +62,13 @@ export const updateTaskController = async (req: Request, res: Response) => {
         const updatedTask = await updateTask(taskId, updateData);
 
         if (!updatedTask) {
-            return res.status(404).json({ message: "Tarefa não encontrada" });
+            res.status(404).json({ message: "Tarefa não encontrada" });
+            
         }
 
         res.json(updatedTask);
     } catch (error) {
-        res.status(500).json({ message: "Erro ao atualizar tarefa", error: error.message });
+        res.status(500).json({ message: "Erro ao atualizar tarefa", error});
     }
 };
 

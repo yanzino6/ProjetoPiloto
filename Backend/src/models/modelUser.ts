@@ -2,7 +2,6 @@ import { connect } from "../config/db";
 
 export interface User {
     id: number;
-    name: string;
     email: string;
     password: string;
 }
@@ -35,8 +34,8 @@ export async function createUser(user: User) {
 
 export async function updateUser(id: number, user: User) {
     const client = await connect();
-    const res = await client.query('UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *',
-        [user.name, user.email, user.password, id]);
+    const res = await client.query('UPDATE users SET email = $1, password = $2 WHERE id = $3 RETURNING *',
+        [ user.email, user.password, id]);
     client.release();
     return res.rows[0];
 }

@@ -5,7 +5,7 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): voi
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-        console.error("❌ Nenhum token fornecido.");
+        console.error("Nenhum token fornecido.");
         res.status(401).json({ error: 'Token required' });
         return;
     }
@@ -14,7 +14,7 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): voi
 
     try {
         const decoded: any = verifyToken(token);
-        console.log("🔍 Token decodificado:", decoded);
+        
 
         if (!decoded.id) {
             console.error("❌ Erro: O token não contém um ID de usuário.");
@@ -25,7 +25,7 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): voi
         
         req.user = { id: decoded.id };
 
-        console.log("✅ Usuário autenticado:", req.user);
+        
         next();
     } catch (error) {
         console.error("❌ Erro ao verificar token:", error);

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styles from "../styles/Lista.module.css";
-import api from "../api"; // Importando a API para comunicação com o backend
+import api from "../api"; 
 
 const Lista = ({ tarefas, atualizaTarefaNoEstado, deletaTarefa, concluiTarefa }) => {
   const [editando, setEditando] = useState(false);
-  const [novoTexto, setNovoTexto] = useState(tarefas.label); // Ajustado para `label`
-  const [novaCategoria, setNovaCategoria] = useState(tarefas.categorie); // Ajustado para `categorie`
-  const [loading, setLoading] = useState(false); // Estado para controlar o loading
-  const [error, setError] = useState(null); // Estado para exibir mensagens de erro
+  const [novoTexto, setNovoTexto] = useState(tarefas.label); 
+  const [novaCategoria, setNovaCategoria] = useState(tarefas.categorie); 
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(null); 
 
   const salvarEdicao = async () => {
     setLoading(true);
@@ -20,11 +20,10 @@ const Lista = ({ tarefas, atualizaTarefaNoEstado, deletaTarefa, concluiTarefa })
         done: tarefas.done,
       });
 
-      console.log("✅ Tarefa atualizada com sucesso:", response.data);
       atualizaTarefaNoEstado(response.data);
       setEditando(false);
     } catch (error) {
-      console.error("❌ Erro ao editar tarefa:", error);
+      console.error("Erro ao editar tarefa:", error);
       setError("Erro ao atualizar tarefa. Tente novamente.");
     } finally {
       setLoading(false);
@@ -37,7 +36,7 @@ const Lista = ({ tarefas, atualizaTarefaNoEstado, deletaTarefa, concluiTarefa })
         type="text"
         value={novoTexto}
         onChange={(e) => setNovoTexto(e.target.value)}
-        disabled={loading} // Desativa enquanto a requisição está em andamento
+        disabled={loading} 
       />
      
       {error && <p className={styles.error}>{error}</p>}

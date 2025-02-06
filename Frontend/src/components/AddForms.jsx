@@ -5,16 +5,15 @@ import api from '../api'
 
 const AddForms = ({ adicionaTarefa }) => {
   const [label, setLabel] = useState("");
-  const [categorie, setCategorie] = useState("Work");
+  
 
   const handleCreateTask = async (e) => {
     e.preventDefault();
     try {
       const taskData = {
         label: label.trim(),
-        categorie: categorie
       };
-      JSON.stringify(taskData, null, 2)
+      
       console.log("📩 Enviando para API:", taskData);
 
       const response = await api.post("/tasks", taskData);

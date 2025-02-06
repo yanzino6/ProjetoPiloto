@@ -78,7 +78,7 @@ export function App() {
       alert("Erro ao marcar como concluída.");
     }
   };
-
+  
   const [searchBar, setSearchBar] = useState("");
   const tarefasFiltradas = tarefas.filter((t) =>
     t.label.toLowerCase().includes(searchBar.toLowerCase())
