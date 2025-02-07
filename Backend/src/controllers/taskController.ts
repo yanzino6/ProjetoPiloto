@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { createTask, getTasksByUser, updateTask, deleteTask } from '../models/modelTasks';
 
 
-
+// cria task, verificando se a mesma foi enviada corretamente e transformando no tipo de dado correto
 export const createTaskController = async (req: Request, res: Response): Promise<void> => {
     try {
 
@@ -32,7 +32,7 @@ export const createTaskController = async (req: Request, res: Response): Promise
         res.status(500).json({ message: "Erro interno ao criar tarefa", error: error.message });
     }
 };
-
+// pega as tasks do usuário e em caso de erro, retorna o erro no servidor
 export const getTasksController = async (req: Request, res: Response) => {
     try {
         const userId = req.user?.id;
@@ -43,7 +43,7 @@ export const getTasksController = async (req: Request, res: Response) => {
     }
 };
 
-
+// realiza atualizações requisitadas nas tasks
 export const updateTaskController = async (req: Request, res: Response): Promise<void> => {
     try {
         const { label, categorie, done } = req.body;
@@ -72,7 +72,7 @@ export const updateTaskController = async (req: Request, res: Response): Promise
     }
 };
 
-
+// deleta task
 export const deleteTaskController = async (req: Request, res: Response) => {
     try {
         await deleteTask(parseInt(req.params.id));

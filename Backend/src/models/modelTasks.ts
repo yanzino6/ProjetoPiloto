@@ -1,6 +1,7 @@
 
 import { connect } from "../config/db";
 
+//tipo task
 export interface Task {
     id: number;
     label: string;
@@ -8,7 +9,7 @@ export interface Task {
     done: boolean;
 }
 
-
+//interação com o banco para criar task
 export async function createTask(task: { label: string; user_id: number }) {
     const client = await connect();
     try {
@@ -27,7 +28,7 @@ export async function createTask(task: { label: string; user_id: number }) {
     }
 }
 
-
+//interação com o banco para pegar tasks do usuario
 export async function getTasksByUser(userId: number) {
     const client = await connect();
     const res = await client.query('SELECT * FROM tasks WHERE user_id = $1', [userId]);
@@ -35,7 +36,7 @@ export async function getTasksByUser(userId: number) {
     return res.rows;
 }
 
-
+//interação com o banco para editar task
 export async function updateTask(id: number, task: Partial<Task>) {
     const client = await connect();
     const res = await client.query(
@@ -47,7 +48,7 @@ export async function updateTask(id: number, task: Partial<Task>) {
     return res.rows[0];
 }
 
-
+//interação com o banco para deletar task
 export async function deleteTask(id: number) {
     const client = await connect();
     await client.query('DELETE FROM tasks WHERE id = $1', [id]);

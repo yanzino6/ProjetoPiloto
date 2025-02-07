@@ -2,7 +2,7 @@ import { User } from '../models/modelUser';
 import bcrypt from 'bcryptjs';
 import { createUser as createUserModel, selectUsers, getUserById, updateUser as updateUserModel, deleteUser as deleteUserModel } from '../models/modelUser';
 
-
+//criptografa a senha do usuario
 export const createUser = async (user: User) => {
     const hashedPassword = await bcrypt.hash(user.password, 10);
     return await createUserModel({ ...user, password: hashedPassword });

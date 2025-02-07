@@ -4,19 +4,20 @@ import { getUserByEmail } from '../models/modelUser';
 import { createToken } from '../jwt/jwt';
 import bcrypt from 'bcryptjs'
 
+// cria usuário e emite status de sucesso ou erro
 export const createUserController = async (req: Request, res: Response) => {
     try {
-        console.log("Recebendo requisição para criar usuário:", req.body);
+        
         const user = await createUser(req.body);
-        console.log("Usuário criado com sucesso:", user);
+        
         res.status(201).json(user);
     } catch (error) {
-        console.error("Erro ao criar usuário:", error);
+        
         res.status(500).json({ message: 'Erro interno ao criar usuário', error });
     }
 };
 
-
+// obtem os usuários e emite status de sucesso ou erro
 export const getUsersController = async (req: Request, res: Response) => {
     try {
         const users = await getUsers();
@@ -26,7 +27,7 @@ export const getUsersController = async (req: Request, res: Response) => {
     }
 };
 
-
+// obtem um usuário e emite status de sucesso ou erro
 export const getUserController = async (req: Request, res: Response) => {
     try {
         const user = await getUser(parseInt(req.params.id));
@@ -40,7 +41,7 @@ export const getUserController = async (req: Request, res: Response) => {
     }
 };
 
-
+// atualiza usuário e emite status de sucesso ou erro
 export const updateUserController = async (req: Request, res: Response) => {
     try {
         const updatedUser = await updateUser(parseInt(req.params.id), req.body);
@@ -50,7 +51,7 @@ export const updateUserController = async (req: Request, res: Response) => {
     }
 };
 
-
+// deleta usuário e emite status de sucesso ou erro
 export const deleteUserController = async (req: Request, res: Response) => {
     try {
         await deleteUser(parseInt(req.params.id));
@@ -60,6 +61,7 @@ export const deleteUserController = async (req: Request, res: Response) => {
     }
 };
 
+//  tenta fazer login de acordo com email e senha da requisição e emite status de erro ou sucesso, e se tiver sucesso gera uma token para o usuário
 export const logiUser = async (req: Request, res: Response) => {
     const { email, password } = req.body;
 

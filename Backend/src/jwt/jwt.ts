@@ -13,3 +13,5 @@ export const verifyToken = (token: string) => {
         return null;
     }
 };
+
+// ARQUIVO AUXILIAR PARA JERAR JWT E VERIFICAR AS MESMAS

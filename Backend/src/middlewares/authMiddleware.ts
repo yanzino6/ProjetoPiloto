@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../jwt/jwt';
 
+// verifica se o usuário está autenticado por meio da token e emite stuatus de sucesso ou erro
 export const checkToken = (req: Request, res: Response, next: NextFunction): void => {
     const authHeader = req.headers.authorization;
 
