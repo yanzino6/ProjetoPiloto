@@ -81,7 +81,7 @@ export const logiUser = async (req: Request, res: Response) => {
         }
 
         const userToken = createToken({ email: user.email, id: user.id });
-        console.log("Token gerado com sucesso:", userToken);
+        
         res.status(200).json({ message: 'Logging in', token: userToken });
     } catch (error: any) {
         res.status(500).json({ error: error.message });

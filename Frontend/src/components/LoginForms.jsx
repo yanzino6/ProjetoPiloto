@@ -13,12 +13,12 @@ const LoginForms = () => {
     try {
       const response = await api.post("/users/login", { email, password });
       localStorage.setItem("token", response.data.token);
-      console.log("🔍 Verificando taskData antes do envio:",response.data)
+      
       alert("Login realizado com sucesso!");
       navigate("/tasks");
     } catch (error) {
       alert("Erro ao fazer login. Verifique suas credenciais.");
-      console.log(error)
+      
     }
   };
 

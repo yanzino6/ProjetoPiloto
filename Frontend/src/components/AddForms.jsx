@@ -13,8 +13,6 @@ const AddForms = ({ adicionaTarefa }) => {
       const taskData = {
         label: label.trim(),
       };
-      
-      console.log("📩 Enviando para API:", taskData);
 
       const response = await api.post("/tasks", taskData);
 
@@ -22,7 +20,7 @@ const AddForms = ({ adicionaTarefa }) => {
       adicionaTarefa(response.data);
     } catch (error) {
       alert("Erro ao criar tarefa. Verifique se está logado.");
-      console.error("❌ Erro ao criar tarefa:", error);
+      console.error(" Erro ao criar tarefa:", error);
     }
   };
 

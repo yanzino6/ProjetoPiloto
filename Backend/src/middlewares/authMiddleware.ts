@@ -7,7 +7,7 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): voi
 
     if (!authHeader) {
         console.error("Nenhum token fornecido.");
-        res.status(401).json({ error: 'Token required' });
+        res.status(401).json({ error: 'Requer Token' });
         return;
     }
 
@@ -18,7 +18,7 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): voi
         
 
         if (!decoded.id) {
-            console.error("❌ Erro: O token não contém um ID de usuário.");
+            console.error(" Erro: O token não contém um ID de usuário.");
             res.status(401).json({ error: "Token inválido" });
             return;
         }
@@ -29,7 +29,7 @@ export const checkToken = (req: Request, res: Response, next: NextFunction): voi
         
         next();
     } catch (error) {
-        console.error("❌ Erro ao verificar token:", error);
-        res.status(401).json({ error: "Unauthorized" });
+        console.error(" Erro ao verificar token:", error);
+        res.status(401).json({ error: "Não autorizado" });
     }
 };

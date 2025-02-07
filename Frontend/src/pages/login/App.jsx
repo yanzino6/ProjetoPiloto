@@ -3,7 +3,6 @@ import styles from '../../styles/App.module.css';
 import Lista from '../../components/Lista';
 import AddForms from '../../components/AddForms';
 import SearchBar from '../../components/SearchBar';
-import Filtro from '../../components/Filtro';
 import api from '../../api';
 
 export function App() {

@@ -2,7 +2,7 @@ import styles from "../styles/Login.module.css";
 import { FaUser, FaLock } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api"; // Importando a API para comunicação com o backend
+import api from "../api"; 
 
 const SignUpForm = () => {
     const [email, setEmail] = useState("");
@@ -14,7 +14,7 @@ const SignUpForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setError(null); // Reseta os erros
+        setError(null); 
         setLoading(true);
 
         if (password !== repeatPassword) {
@@ -25,10 +25,10 @@ const SignUpForm = () => {
 
         try {
             const response = await api.post("/users/signup", { email, password });
-            console.log("✅ Conta criada com sucesso:", response.data);
+            alert("Conta criada com sucesso!")
             navigate("/login");
         } catch (error) {
-            console.error("❌ Erro ao criar conta:", error);
+            console.error(" Erro ao criar conta:", error);
             setError(error.response?.data?.message || "Failed to create account.");
         } finally {
             setLoading(false);
